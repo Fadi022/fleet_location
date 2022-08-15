@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="fleet_vehicle_log_contract_view_form" model="ir.ui.view">
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+				<notebook colspan="4">
+					<page string="Locataire Principal">
+						<group col="4">
+							<field name="nom_locataire" />
+							<field name="prenom_locataire" />
+							<field name="date_naissance" />
+							<field name="nationalite" />
+							<field name="adresse_maroc" />
+							<field name="adresse_etranger" />
+							<field name="tel" />
+						</group >
+					</page>
+					<page string="Identités">
+						<group col="4">
+							<field name="passport" />
+							<field name="passeport_debut" />
+							<field name="passeport_fin" />
+							<field name="cin_locataire" />
+							<field name="cin_locataire_debut" />
+							<field name="cin_locataire_fin" />
+						</group>
+					</page>
+					<page string="Durée et modalite de location">
+						<group col="4">
+							<field name="date_depart" />
+							<field name="date_retour" />
+							<field name="nbr_jours" />
+							<field name="heure_depart" />
+							<field name="heure_retour" />
+						</group>
+					</page>
+					<page string="Information Permis">
+						<group col="4">
+							<field name="permis_locataire" />
+							<field name="date_debut_permis_locataire" />
+							<field name="date_expiration_permis_locataire" />
+							<field name="ville_permis_locataire" />
+						</group>
+					</page>
+					<page string="Co-locataire">
+						<group col="4">
+							<field name="nom_colocataire"/>
+							<field name="prenom_colocataire"/>
+							<field name="tel_col"/>
+							<field name="date_naissance_col"/>
+							<field name="nationalie_col"/>
+							<field name="cin_colocataire"/>
+							<field name="cin_colocataire_debut"/>
+							<field name="cin_colocataire_fin"/>
+							<field name="adresse_maroc_col"/>
+							<field name="passeport_col"/>
+							<field name="passeport_col_debut"/>
+							<field name="passeport_col_fin"/>
+						</group>
+						<group col="4">
+							<field name="permis_colocataire"/>
+							<field name="date_debut_permis_colocataire"/>
+							<field name="date_expiration_permis_colocataire"/>
+							<field name="user_id" invisible="1"/>
+							<field name="insurer_id" invisible="1"/>
+						</group>
+					</page >
+					<page string="Voiture louée">
+						<group col="3">
+								<group string="Immatriculation">
+									<field name="marque" />
+								</group>
+								<group string="Etat du véhicule">
+									<field name="lavage" />
+									<field name="carte_grise" />
+									<field name="assurance" />
+									<field name="decision" />
+									<field name="vignette" />
+									<field name="visite_tech" />
+									<field name="gonfleur" />
+									<field name="triangle" />
+									<field name="gilet" />
+								</group>
+								<group >
+									<field name="enjoliseur" />
+									<field name="radio" />
+									<field name="jeux_tapis" />
+									<field name="cendrier" />
+									<field name="antenne" />
+									<field name="roue_secours" />
+									<field name="cric" />
+									<field name="antivol" />
+									<field name="extincteur" />
+								</group>
+						</group>
+					</page>
+					<page string="Prolongation et modalité de paiment">
+							<group col="2">
+								<group string="Prolongation">
+									<!-- <field name="date_retour"  /> -->
+									<field name="date_fin_prol" />
+									<field name="nbr_jours_prol" />
+								</group>
+								<group string="Modalité de paiment">
+									<field name="prix_par_jours" />
+									<field name="avance" widget="monetary"/>
+									<field name="reste_a_payer" widget="monetary"/>
+									<field name="total_ttc" widget="monetary"/>
+								</group>
+							</group>
+					</page>
+					
+				</notebook> 
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

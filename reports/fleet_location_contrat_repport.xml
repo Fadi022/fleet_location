@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="fleet_location_contrat_repport" model="ir.actions.report">
+        <field name="name">Print Contrat</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_location.fleet_contrat_repport</field>
+        <field name="report_file">fleet_location.fleet_contrat_repport</field>
+        <field name="print_report_name">'Print Contrat - %s' % (object.nom_locataire).replace('/', '').upper(), (object.prenom_locataire).replace('/', '').title()</field> 
+		<field name="binding_type">report</field>
+    </record>
+	<template id="fleet_location_contrat_repport_template">
+		<t t-call="web.basic_layout">
+			<div class="page">
+				<t t-foreach="docs" t-as="contrat">
+					<head>
+						<meta charset="utf-8"/>
+						<meta name="generator" content="pdf2htmlEX"/>
+						<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+						<link rel="stylesheet" type="text/css" href="fleet/static/src/css/style.css"/>
+						<script type="text/javascript" src="#"/>
+						<title>Contrat de location</title>
+					</head>
+					<body>
+					<template id="external_layout_header_inherit_cr" inherit_id="report.external_layout_header">
+						<xpath expr="//div[@class='header']" position="replace">
+							<div class="header">
+								<div> ROSOMEK Sarl. Location de Voiture </div>
+								<div style="120px;align:right"> Contrat de location de Voiture N°: <t t-esc="contrat.name"/></div>
+							
+							</div>
+						</xpath>
+					</template> 
+						<table width="100%" border="0">
+							<tr>
+								<td><b><u>Locataire Principale </u></b></td>
+								<td><b><u>Voiture Louée</u></b></td>
+							</tr>
+							<tr>
+								<td>Je sousigné(e): </td>
+								<td>Marque: <t t-esc="contrat.modele_id"/></td>
+							</tr>
+							<tr>
+								<td> Nom et prénom: <t t-esc="contrat.nom_locataire.upper()"/> <t t-esc="contrat.prenom_locataire.title()"/></td>
+								<td> Immatriculation N°: <t t-esc="contrat.immatriculation"/></td>
+							</tr>
+							<tr>
+								
+								<td> Né le: <t t-esc="contrat.date_naissance"/> </td>
+								<td>Type : <t t-esc="contrat.type_carburant"/></td>
+							</tr>
+							<tr>
+								<td>Nationalité : <t t-esc="contrat.nationalite"/></td>
+								<td><b><u>Durée et modalité de location :</u></b></td>
+							</tr>
+							<tr>
+								<td>Adress au Maroc: <t t-esc="contrat.adresse_maroc"/></td>
+								<td >
+									<table>
+									<tr>
+										<td>Date de départ:<t t-esc="contrat.date_depart"/></td>
+										<td> Heure :<t t-esc="contrat.heure_depart"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>Adress à l'etranger: <t t-esc="contrat.adresse_etranger"/></td>
+								<td >
+									<table>
+									<tr>
+										<td>Date de retour:<t t-esc="contrat.date_retour"/></td>
+										<td> Heure :<t t-esc="contrat.heure_retour"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>Tel : <t t-esc="contrat.tel"/></td>
+								<td>Durée de location :<t t-esc="contrat.nbr_jours"/></td>
+							</tr>
+							<tr>
+								<td>Passeport N : <t t-esc="contrat.passport"/></td>
+								<td>Lieu de récupération /agence : Meknes</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>Du : <t t-esc="contrat.passeport_debut"/></td>
+											<td>Au : <t t-esc="contrat.passeport_fin"/></td>
+										</tr>
+									</table>
+								</td>
+								<td >
+									<table>
+									<tr>
+										<td>KM Départ:</td>
+										<td> KM Retour :</td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>CINE:<t t-esc="contrat.cin_locataire"/></td>
+								<td> Retour réel:</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+									<tr>
+										<td>DU:<t t-esc="contrat.cin_locataire_debut"/></td>
+										<td>AU:<t t-esc="contrat.cin_locataire_fin"/></td>
+									</tr>
+									</table>
+								</td>
+								<td><b><u>Prolongation</u></b></td>
+							</tr>
+							<tr>
+								<td>Permis N:<t t-esc="contrat.cin_locataire"/></td>
+								<td> Durée:<t t-esc="contrat.nbr_jours"/></td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+									<tr>
+										<td>DU:<t t-esc="contrat.passeport_debut"/></td>
+										<td>AU:<t t-esc="contrat.passeport_fin"/></td>
+									</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+									<tr>
+										<td>DU:<t t-esc="contrat.date_depart"/></td>
+										<td>AU:<t t-esc="contrat.date_retour"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="3" style="width:350px;font-size: small;">Déclare avoir pris pleinement connaissance des clauses et conditions générales figurants au verso du présent contrat auxquelles j’adhère, sans réserve, et que je m’engage à respecter : Signature : </td>
+								<td> En chiffres :</td>
+							</tr>
+							<tr>
+								<td> En lettres :</td>
+							</tr>
+							<tr>
+								<td> </td>
+							</tr>
+							<tr>
+								<td class="rub"><u><b>Colocataire</b></u></td>
+								<td rowspan="2">Lu et approuvé :</td>
+							</tr>
+							<tr>
+								<td>Je soussigné(e):</td>
+							</tr>
+							<tr>
+								<td>Nom et Prénom:<t t-esc="contrat.nom_colocataire.upper()"/><t t-esc="contrat.prenom_colocataire.title()"/></td>
+								<td><b>Etat du Véhicule</b></td>
+							</tr>
+							<tr>
+								<td>Né(e) le:<t t-esc="contrat.date_naissance_col"/></td>
+								<td style="width:200px">Etat générale du véhicule lors de la prise en charge</td>
+							</tr>
+							<tr>
+								<td>Nationalité:<t t-esc="contrat.nationalie_col"/></td>
+								<td>Lavage:<t t-esc="contrat.lavage"/></td>
+							</tr>
+							<tr>
+								<td>Adresse:<t t-esc="contrat.adresse_maroc_col"/></td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px;font-weight: bold;">Document</td>
+										<td style="width:60px">Etat</td>
+										<td style="width:140px;font-weight: bold;">Document</td>
+										<td style="width:60px">Etat</td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>Tel:<t t-esc="contrat.tel_col"/></td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Carte grise</td>
+										<td style="width:60px"><t t-esc="contrat.carte_grise"/></td>
+										<td style="width:140px">Enjoliseur</td>
+										<td style="width:60px"><t t-esc="contrat.enjoliseur"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>Passeport N:<t t-esc="contrat.passeport_col"/></td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Assurance</td>
+										<td style="width:60px"><t t-esc="contrat.assurance"/></td>
+										<td style="width:140px">Radio</td>
+										<td style="width:60px"><t t-esc="contrat.radio"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Du: <t t-esc="contrat.passeport_col_debut"/></td>
+										<td style="width:120px">Au:<t t-esc="contrat.passeport_col_fin"/></td>
+									</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Décision</td>
+										<td style="width:60px"><t t-esc="contrat.decision"/></td>
+										<td style="width:140px">Jeux tapis</td>
+										<td style="width:60px"><t t-esc="contrat.jeux_tapis"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>CINE:<t t-esc="contrat.cin_colocataire"/></td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Vignette</td>
+										<td style="width:60px"><t t-esc="contrat.vignette"/></td>
+										<td style="width:140px">Cendrier</td>
+										<td style="width:60px"><t t-esc="contrat.cendrier"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Du: <t t-esc="contrat.passeport_col_debut"/></td>
+										<td style="width:120px">Au:<t t-esc="contrat.passeport_col_fin"/></td>
+									</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Viste Tech</td>
+										<td style="width:60px"><t t-esc="contrat.visite_tech"/></td>
+										<td style="width:140px">Antenne radio</td>
+										<td style="width:60px"><t t-esc="contrat.antenne"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>Permis N:<t t-esc="contrat.permis_colocataire"/></td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Gonfleur</td>
+										<td style="width:60px"><t t-esc="contrat.gonfleur"/></td>
+										<td style="width:140px">Rous Secours</td>
+										<td style="width:60px"><t t-esc="contrat.roue_secours"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Du: <t t-esc="contrat.passeport_col_debut"/></td>
+										<td style="width:120px">Au:<t t-esc="contrat.passeport_col_fin"/></td>
+									</tr>
+									</table>
+								</td>
+								<td>
+									<table>
+									<tr>
+										<td style="width:140px">Triangle</td>
+										<td style="width:60px"><t t-esc="contrat.triangle"/></td>
+										<td style="width:140px">Cric/Manivelle</td>
+										<td style="width:60px"><t t-esc="contrat.cric"/></td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="width:150px;font-weight: bold;font-weight: bold;" > Signature:</td>
+								<td> 
+									<table>
+									<tr>
+										<td style="width:140px">Gilet</td>
+										<td style="width:60px"><t t-esc="contrat.gilet"/></td>
+										<td style="width:140px">
+											<table>
+											<tr>
+												<td style="width:140px">Antivol</td>
+												<td style="width:60px"><t t-esc="contrat.antivol"/></td>
+											</tr>
+											<tr>
+												<td style="width:140px">Extincteur</td>
+												<td style="width:60px"><t t-esc="contrat.extincteur"/></td>
+											</tr>
+											</table>
+										</td>
+										
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="width:200px;font-size: small;">Le client est seul respomsable des délits contractaventions et infractions au code de la route </td>
+							</tr>
+							<tr>
+								<td style="width:60px;font-weight: bold;">Avance:<t t-esc="contrat.avance"/></td>
+							</tr>
+							<tr>
+								<td style="width:60px;font-weight: bold;">Reste a payer:<t t-esc="contrat.reste_a_payer"/></td>
+							</tr>
+							<tr>
+								<td style="width:60px;font-weight: bold;">Total T.T.C:<t t-esc="contrat.total_ttc"/></td>
+							</tr>
+						</table>
+						
+					<template id="external_layout_footer_inherit_cr" 
+						inherit_id="report.external_layout_footer">
+						<xpath expr="//div[@class='footer']" position="replace">
+							<div class="footer">
+								<h1>Ste Footer</h1>
+							</div>
+						</xpath>
+					</template>
+					</body>
+				</t>
+			</div>
+		</t>
+	</template>
+</odoo>
